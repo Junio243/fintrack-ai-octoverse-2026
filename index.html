@@ -4,63 +4,107 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FinTrack AI | Controle de Gastos Inteligente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
   <header class="hero">
-    <nav class="nav">
-      <h1>FinTrack AI</h1>
-      <a class="btn" href="#demo">Ver demo</a>
+    <nav class="nav wrap">
+      <div class="brand">
+        <span class="logo">💸</span>
+        <h1>FinTrack AI</h1>
+      </div>
+      <a class="btn ghost" href="#demo">Ver demo</a>
     </nav>
-    <div class="hero-content">
-      <h2>Controle seus gastos com IA em minutos</h2>
-      <p>
-        Um protótipo para hackathon que classifica despesas automaticamente,
-        mostra insights e ajuda você a economizar com decisões melhores.
+
+    <section class="hero-content wrap">
+      <p class="badge">Hackathon-ready • Fintech + AI</p>
+      <h2>Seu dinheiro sob controle, com design moderno e insights inteligentes.</h2>
+      <p class="subtitle">
+        Cadastre gastos, visualize padrões e receba recomendações automáticas.
+        Um MVP bonito, rápido e pronto para apresentação.
       </p>
       <div class="hero-actions">
-        <button class="btn" id="startBtn">Começar</button>
-        <button class="btn secondary" id="sampleBtn">Carregar exemplo</button>
+        <button class="btn" id="startBtn">Começar agora</button>
+        <button class="btn ghost" id="sampleBtn">Carregar dados de exemplo</button>
       </div>
-    </div>
+    </section>
   </header>
 
-  <main>
-    <section class="card" id="demo">
-      <h3>Adicionar gasto</h3>
+  <main class="wrap layout" id="demo">
+    <section class="card form-card">
+      <h3>➕ Adicionar gasto</h3>
       <form id="expenseForm" class="grid">
-        <input type="text" id="title" placeholder="Ex.: Almoço" required />
-        <input type="number" id="amount" placeholder="Valor (R$)" min="0" step="0.01" required />
-        <select id="category">
-          <option value="Comida">Comida</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Moradia">Moradia</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Saúde">Saúde</option>
-          <option value="Outros">Outros</option>
-        </select>
-        <button class="btn" type="submit">Salvar gasto</button>
+        <label>
+          Descrição
+          <input type="text" id="title" placeholder="Ex.: Almoço" required />
+        </label>
+
+        <label>
+          Valor
+          <input type="number" id="amount" placeholder="R$ 0,00" min="0" step="0.01" required />
+        </label>
+
+        <label>
+          Categoria
+          <select id="category">
+            <option value="Comida">Comida</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Moradia">Moradia</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Outros">Outros</option>
+          </select>
+        </label>
+
+        <button class="btn full" type="submit">Salvar gasto</button>
       </form>
     </section>
 
-    <section class="card">
-      <h3>Resumo</h3>
-      <div class="summary">
-        <p><strong>Total:</strong> <span id="total">R$ 0,00</span></p>
-        <p><strong>Maior categoria:</strong> <span id="topCategory">-</span></p>
+    <section class="card stats-card">
+      <h3>📊 Resumo financeiro</h3>
+      <div class="kpis">
+        <article>
+          <span>Total</span>
+          <strong id="total">R$ 0,00</strong>
+        </article>
+        <article>
+          <span>Categoria líder</span>
+          <strong id="topCategory">-</strong>
+        </article>
+        <article>
+          <span>Qtd. de gastos</span>
+          <strong id="expenseCount">0</strong>
+        </article>
+        <article>
+          <span>Ticket médio</span>
+          <strong id="avgTicket">R$ 0,00</strong>
+        </article>
       </div>
-      <ul id="expenseList"></ul>
-      <button class="btn danger" id="clearBtn">Limpar tudo</button>
+      <div class="chart" id="chart"></div>
     </section>
 
-    <section class="card">
-      <h3>Insight da IA (simulado)</h3>
-      <p id="aiInsight">Adicione alguns gastos para receber recomendações.</p>
+    <section class="card list-card">
+      <div class="row-between">
+        <h3>🧾 Últimos lançamentos</h3>
+        <button class="btn danger" id="clearBtn">Limpar tudo</button>
+      </div>
+      <ul id="expenseList" class="expense-list"></ul>
+    </section>
+
+    <section class="card insight-card">
+      <h3>🤖 Insight da IA</h3>
+      <p id="aiInsight">Adicione alguns gastos para receber recomendações personalizadas.</p>
     </section>
   </main>
 
-  <footer>
-    <p>Projeto demo para Octoverse Hackathon • FinTrack AI</p>
+  <footer class="wrap footer">
+    <p>FinTrack AI • Projeto demo para Octoverse Hackathon</p>
   </footer>
 
   <script src="script.js"></script>
