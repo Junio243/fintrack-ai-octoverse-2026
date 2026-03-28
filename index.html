@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinTrack AI | Controle de Gastos Inteligente</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav">
+      <h1>FinTrack AI</h1>
+      <a class="btn" href="#demo">Ver demo</a>
+    </nav>
+    <div class="hero-content">
+      <h2>Controle seus gastos com IA em minutos</h2>
+      <p>
+        Um protótipo para hackathon que classifica despesas automaticamente,
+        mostra insights e ajuda você a economizar com decisões melhores.
+      </p>
+      <div class="hero-actions">
+        <button class="btn" id="startBtn">Começar</button>
+        <button class="btn secondary" id="sampleBtn">Carregar exemplo</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="card" id="demo">
+      <h3>Adicionar gasto</h3>
+      <form id="expenseForm" class="grid">
+        <input type="text" id="title" placeholder="Ex.: Almoço" required />
+        <input type="number" id="amount" placeholder="Valor (R$)" min="0" step="0.01" required />
+        <select id="category">
+          <option value="Comida">Comida</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Moradia">Moradia</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Saúde">Saúde</option>
+          <option value="Outros">Outros</option>
+        </select>
+        <button class="btn" type="submit">Salvar gasto</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h3>Resumo</h3>
+      <div class="summary">
+        <p><strong>Total:</strong> <span id="total">R$ 0,00</span></p>
+        <p><strong>Maior categoria:</strong> <span id="topCategory">-</span></p>
+      </div>
+      <ul id="expenseList"></ul>
+      <button class="btn danger" id="clearBtn">Limpar tudo</button>
+    </section>
+
+    <section class="card">
+      <h3>Insight da IA (simulado)</h3>
+      <p id="aiInsight">Adicione alguns gastos para receber recomendações.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Projeto demo para Octoverse Hackathon • FinTrack AI</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
