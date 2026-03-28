@@ -672,12 +672,50 @@
         </div>
 
         <div class="glass-card p-7 rounded-4xl">
-          <h2 class="font-headline text-lg italic mb-3">Sobre</h2>
-          <p class="text-sm text-on-surface-variant leading-relaxed">
+          <h2 class="font-headline text-lg italic mb-5">Sobre o Projeto</h2>
+          <p class="text-sm text-on-surface-variant leading-relaxed mb-4">
             <strong class="font-headline italic text-primary">FinTrack AI</strong> — Desenvolvido para o Octoverse Hackathon.<br/>
             Stack: HTML + CSS (TailwindCSS) + JavaScript puro + Chart.js<br/>
             Dados armazenados localmente via <code class="font-label text-xs bg-surface-container px-1.5 py-0.5 rounded">localStorage</code>.
           </p>
+        </div>
+
+        <!-- Developer Credit Card -->
+        <div class="glass-card p-7 rounded-4xl relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 pointer-events-none"></div>
+          <div class="relative">
+            <div class="flex items-center gap-2 mb-5">
+              <span class="material-symbols-outlined fill-icon text-primary" style="font-size:18px">code</span>
+              <h2 class="font-headline text-lg italic">Desenvolvedor</h2>
+            </div>
+            <div class="flex items-start gap-5">
+              <div class="w-14 h-14 rounded-2xl bg-primary-container flex items-center justify-center flex-shrink-0 shadow-sm hologram-shadow">
+                <span class="font-headline italic text-primary text-2xl font-bold">J</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-headline text-xl italic text-on-surface mb-0.5">Júnio</p>
+                <p class="font-label text-xs text-primary tracking-wide mb-3">Software Engineer · AI &amp; SaaS</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="cat-badge" style="background:rgba(202,231,255,0.4);color:#356a8c">🌍 Brasília, DF — Brasil</span>
+                  <span class="cat-badge" style="background:rgba(143,246,208,0.35);color:#007257">🎂 17 anos</span>
+                  <span class="cat-badge" style="background:rgba(255,222,183,0.4);color:#7d6039">⚡ Em produção</span>
+                </div>
+                <ul class="space-y-2 text-sm text-on-surface-variant">
+                  <li class="flex items-start gap-2"><span class="text-primary mt-0.5">🚀</span><span>Software Engineer com projetos reais em produção — de APIs a plataformas completas de assinatura digital</span></li>
+                  <li class="flex items-start gap-2"><span class="mt-0.5">🤖</span><span>Fascinado por IA, agentes autônomos e automação de tudo que puder ser automatizado</span></li>
+                  <li class="flex items-start gap-2"><span class="mt-0.5">☁️</span><span>Heavy user de cloud: Vercel · Supabase · Oracle · Azure · GCP</span></li>
+                  <li class="flex items-start gap-2"><span class="mt-0.5">🧠</span><span>Fun fact: lanço SaaS às 2h da manhã e reviso anatomia antes do café ☕</span></li>
+                </ul>
+                <div class="mt-5 pt-4 border-t border-outline-variant/10 flex items-center gap-3">
+                  <a href="https://github.com/Junio243" target="_blank" rel="noopener" class="btn-glass px-4 py-2 text-xs flex items-center gap-1.5">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    github.com/Junio243
+                  </a>
+                  <span class="font-label text-[10px] text-outline uppercase tracking-widest">Octoverse Hackathon 2024</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -686,13 +724,27 @@
 </main>
 
 <!-- Footer -->
-<footer class="lg:ml-64 py-10 flex flex-col items-center justify-center space-y-4">
+<footer class="lg:ml-64 py-8 flex flex-col items-center justify-center space-y-5 border-t border-outline-variant/10">
+  <div class="flex items-center gap-3">
+    <div class="w-8 h-8 rounded-xl bg-primary-container flex items-center justify-center">
+      <span class="font-headline italic text-primary text-sm font-bold">J</span>
+    </div>
+    <div class="text-left">
+      <p class="font-headline italic text-on-surface text-sm leading-tight">Júnio</p>
+      <p class="font-label text-[10px] text-outline tracking-widest">Software Engineer · AI &amp; SaaS · Brasília, DF</p>
+    </div>
+    <span class="w-px h-8 bg-outline-variant/20 mx-2"></span>
+    <a href="https://github.com/Junio243" target="_blank" rel="noopener" class="flex items-center gap-1.5 text-outline hover:text-primary transition-colors font-label text-[10px] uppercase tracking-widest">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      Junio243
+    </a>
+  </div>
   <div class="flex space-x-6">
     <a class="text-outline font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors" href="#">Privacidade</a>
     <a class="text-outline font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors" href="#">Termos</a>
     <a class="text-outline font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors" href="#">Suporte</a>
   </div>
-  <p class="text-outline font-label text-[10px] uppercase tracking-widest opacity-60">© 2024 FinTrack AI · Crafted for the Digital Alchemist</p>
+  <p class="text-outline font-label text-[10px] uppercase tracking-widest opacity-50">© 2026 FinTrack AI · Crafted for the Digital Alchemist · Octoverse Hackathon</p>
 </footer>
 
 <!-- Decorative orbs -->
