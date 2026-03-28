@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="pt-BR">
+<html class="light" lang="pt-BR" id="html-root">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -220,6 +220,68 @@
   /* AI insights panel */
   #ai-insights-text { transition: opacity 0.4s ease; }
   #ai-insights-text.updating { opacity: 0; }
+
+  /* ─── DARK MODE ─── */
+  .dark body { background: #0d1117; color: #e6edf3; }
+  .dark nav {
+    background: rgba(13, 17, 23, 0.85) !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.05) !important;
+  }
+  .dark #sidebar {
+    background: rgba(13, 17, 23, 0.75) !important;
+  }
+  .dark .glass-card {
+    background: rgba(22, 27, 34, 0.80) !important;
+    border-color: rgba(255,255,255,0.06) !important;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+  }
+  .dark .glass-card-hover:hover {
+    background: rgba(30, 38, 48, 0.90) !important;
+  }
+  .dark .etched-input {
+    color: #e6edf3 !important;
+    border-bottom-color: rgba(139,148,158,0.3) !important;
+    background: transparent !important;
+  }
+  .dark .etched-input::placeholder { color: rgba(139,148,158,0.4) !important; }
+  .dark .etched-input:focus { border-bottom-color: #9accf3 !important; }
+  .dark .nav-item.active {
+    background: rgba(46,99,133,0.2) !important;
+    color: #9accf3 !important;
+  }
+  .dark .nav-item:not(.active):hover {
+    background: rgba(255,255,255,0.05) !important;
+    color: #9accf3 !important;
+  }
+  .dark .btn-glass {
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #9accf3 !important;
+  }
+  .dark .btn-glass:hover {
+    background: rgba(255,255,255,0.12) !important;
+  }
+  .dark .modal-overlay { background: rgba(0,0,0,0.6) !important; }
+  .dark .toast.success { background: rgba(0,108,82,0.85) !important; color: #8ff6d0 !important; }
+  .dark .toast.info { background: rgba(46,99,133,0.85) !important; color: #cae7ff !important; }
+  .dark .toast.error { background: rgba(147,0,10,0.85) !important; color: #ffdad6 !important; }
+  /* dark text utility overrides */
+  .dark .text-on-surface { color: #e6edf3 !important; }
+  .dark .text-on-surface-variant { color: #8b949e !important; }
+  .dark .text-outline { color: #6e7681 !important; }
+  .dark .bg-surface-container { background: #161b22 !important; }
+  .dark .bg-surface-container-low { background: #0d1117 !important; }
+  .dark .bg-primary-container { background: rgba(46,99,133,0.25) !important; }
+  .dark .bg-error-container { background: rgba(147,0,10,0.25) !important; }
+  .dark .text-error { color: #ffdad6 !important; }
+  .dark table thead { border-bottom-color: rgba(255,255,255,0.06) !important; }
+  .dark table tr { border-bottom-color: rgba(255,255,255,0.04) !important; }
+  .dark .orb { opacity: 0.4; }
+  /* dark mode toggle button */
+  #dark-toggle .icon-sun  { display: none; }
+  #dark-toggle .icon-moon { display: flex; }
+  .dark #dark-toggle .icon-sun  { display: flex; }
+  .dark #dark-toggle .icon-moon { display: none; }
 </style>
 </head>
 <body class="bg-surface font-body text-on-surface selection:bg-primary-container min-h-screen overflow-x-hidden">
@@ -273,6 +335,11 @@
     </div>
   </div>
   <div class="flex items-center gap-3">
+    <!-- Dark Mode Toggle -->
+    <button id="dark-toggle" aria-label="Toggle dark mode" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+      <span class="icon-moon material-symbols-outlined text-on-surface-variant" style="font-size:20px">dark_mode</span>
+      <span class="icon-sun material-symbols-outlined text-on-surface-variant" style="font-size:20px">light_mode</span>
+    </button>
     <button id="load-demo-btn" class="btn-glass px-5 py-2 text-sm">
       <span class="flex items-center gap-1.5"><span class="material-symbols-outlined" style="font-size:16px">upload_file</span> Demo</span>
     </button>
@@ -327,7 +394,7 @@
   <div id="view-dashboard" class="view active px-5 lg:px-8 pb-20 max-w-7xl mx-auto py-10">
 
     <!-- Hero Section -->
-    <header class="mb-12 relative animate-slide-in">
+    <header class="mb-10 relative animate-slide-in">
       <div class="absolute -top-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
       <h1 class="font-headline text-4xl lg:text-6xl italic text-on-surface mb-4 ethereal-glow leading-tight">
         Seu dinheiro sob controle,<br/>guiado por inteligência.
@@ -346,6 +413,37 @@
         </button>
       </div>
     </header>
+
+    <!-- Why This Matters -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 animate-slide-in" style="animation-delay:0.08s">
+      <div class="glass-card p-5 rounded-3xl flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-primary-container flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined fill-icon text-primary" style="font-size:20px">query_stats</span>
+        </div>
+        <div>
+          <p class="font-headline italic text-on-surface text-sm mb-0.5">Visibilidade total</p>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Veja exatamente para onde seu dinheiro vai em segundos, sem planilhas.</p>
+        </div>
+      </div>
+      <div class="glass-card p-5 rounded-3xl flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-secondary-container/40 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined fill-icon text-secondary" style="font-size:20px">auto_awesome</span>
+        </div>
+        <div>
+          <p class="font-headline italic text-on-surface text-sm mb-0.5">IA que entende você</p>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Insights personalizados que identificam padrões e sugerem ações reais.</p>
+        </div>
+      </div>
+      <div class="glass-card p-5 rounded-3xl flex items-start gap-4">
+        <div class="w-10 h-10 rounded-2xl bg-tertiary-container/40 flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined fill-icon text-tertiary" style="font-size:20px">lock</span>
+        </div>
+        <div>
+          <p class="font-headline italic text-on-surface text-sm mb-0.5">100% privado</p>
+          <p class="text-xs text-on-surface-variant leading-relaxed">Seus dados ficam só no seu dispositivo. Zero servidor, zero rastreamento.</p>
+        </div>
+      </div>
+    </div>
 
     <!-- Bento Grid -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">

@@ -10,6 +10,7 @@ const STORAGE_KEYS = {
   TRANSACTIONS: 'fintrack_transactions_v2',
   GOAL: 'fintrack_monthly_goal',
   CURRENT_VIEW: 'fintrack_current_view',
+  DARK_MODE: 'fintrack_dark_mode',
 };
 
 const CATEGORY_CONFIG = {
@@ -923,7 +924,7 @@ dom.settingsClearBtn?.addEventListener('click', async () => {
   }
 });
 
-// ─── 19. Main Buttons ────────────────────────────────────────
+// ─── 19. Clear All Handler ───────────────────────────────────
 dom.clearAllBtn?.addEventListener('click', async () => {
   if (state.transactions.length === 0) { showToast('Não há lançamentos para apagar.', 'info'); return; }
   const confirmed = await showConfirm('Limpar tudo', `Remover ${state.transactions.length} transação(ões)?`);
@@ -934,23 +935,73 @@ dom.clearAllBtn?.addEventListener('click', async () => {
   }
 });
 
+// ─── 19b. Dark Mode ──────────────────────────────────────────
+const html = document.getElementById('html-root');
+
+function applyDarkMode(dark) {
+  if (dark) {
+    html.classList.remove('light');
+    html.classList.add('dark');
+  } else {
+    html.classList.remove('dark');
+    html.classList.add('light');
+  }
+  localStorage.setItem(STORAGE_KEYS.DARK_MODE, dark ? '1' : '0');
+}
+
+function initDarkMode() {
+  const saved = localStorage.getItem(STORAGE_KEYS.DARK_MODE);
+  const prefersDark = saved !== null ? saved === '1' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyDarkMode(prefersDark);
+}
+
+document.getElementById('dark-toggle')?.addEventListener('click', () => {
+  const isDark = html.classList.contains('dark');
+  applyDarkMode(!isDark);
+});
+
+// ─── 19b. Premium Demo Data ──────────────────────────────────
+const d = (daysAgo) => new Date(Date.now() - daysAgo * 86400000).toISOString();
 const DEMO_DATA = [
-  { id: 'd1', description: 'Supermercado Premium',     value: 342.00, category: 'Alimentação', date: new Date().toISOString() },
-  { id: 'd2', description: 'Assinatura FinTrack AI',    value:  49.90, category: 'Serviços',    date: new Date(Date.now() - 86400000).toISOString() },
-  { id: 'd3', description: 'Uber para Aeroporto',       value:  88.20, category: 'Transporte',  date: new Date(Date.now() - 2*86400000).toISOString() },
-  { id: 'd4', description: 'Aluguel Mensal',            value:2500.00, category: 'Moradia',     date: new Date(Date.now() - 5*86400000).toISOString() },
-  { id: 'd5', description: 'Academia Bodytech',         value: 159.90, category: 'Saúde',       date: new Date(Date.now() - 3*86400000).toISOString() },
-  { id: 'd6', description: 'Cinema + Jantar',           value: 215.00, category: 'Lazer',       date: new Date(Date.now() - 7*86400000).toISOString() },
-  { id: 'd7', description: 'Netflix / Spotify',         value:  74.80, category: 'Serviços',    date: new Date(Date.now() - 4*86400000).toISOString() },
-  { id: 'd8', description: 'Padaria artesanal',         value:  38.50, category: 'Alimentação', date: new Date(Date.now() - 86400000).toISOString() },
+  // Moradia
+  { id: 'dm1',  description: 'Aluguel Mensal',              value: 2200.00, category: 'Moradia',     date: d(28) },
+  { id: 'dm2',  description: 'Condomínio + IPTU',           value:  380.00, category: 'Moradia',     date: d(27) },
+  // Serviços / Assinaturas
+  { id: 'dm3',  description: 'Internet (fibra 500mb)',       value:  119.90, category: 'Serviços',    date: d(26) },
+  { id: 'dm13', description: 'Spotify Premium',             value:   21.90, category: 'Serviços',    date: d(26) },
+  { id: 'dm16', description: 'ChatGPT Plus',                value:  107.00, category: 'Serviços',    date: d(26) },
+  // Alimentação
+  { id: 'dm4',  description: 'Mercado da Semana',            value:  487.50, category: 'Alimentação', date: d(22) },
+  // Transporte
+  { id: 'dm11', description: 'Gasolina',                    value:  280.00, category: 'Transporte',  date: d(20) },
+  // Saúde
+  { id: 'dm8',  description: 'Academia Smart Fit',           value:  109.90, category: 'Saúde',       date: d(25) },
+  { id: 'dm9',  description: 'Farmácia — Suplementos',      value:  228.00, category: 'Saúde',       date: d(19) },
+  // Alimentação continuação
+  { id: 'dm5',  description: 'iFood — Jantar sexta',        value:   89.90, category: 'Alimentação', date: d(17) },
+  // Lazer
+  { id: 'dm15', description: 'Steam — Hogwarts Legacy',     value:  149.90, category: 'Lazer',       date: d(15) },
+  { id: 'dm6',  description: 'Padaria Artesanal',            value:   42.00, category: 'Alimentação', date: d(14) },
+  // Saúde
+  { id: 'dm10', description: 'Consulta Médica Particular',   value:  350.00, category: 'Saúde',       date: d(11) },
+  // Lazer
+  { id: 'dm14', description: 'Cinema + Jantar',             value:  198.00, category: 'Lazer',       date: d(9)  },
+  // Alimentação
+  { id: 'dm7',  description: 'Mercado da Semana',            value:  312.00, category: 'Alimentação', date: d(7)  },
+  // Transporte
+  { id: 'dm12', description: 'Uber / 99 (semana)',           value:  145.00, category: 'Transporte',  date: d(5)  },
+  // Serviços
+  { id: 'dm17', description: 'Adobe Creative Cloud',        value:  234.90, category: 'Serviços',    date: d(3)  },
+  { id: 'dm18', description: 'Curso Udemy — AWS Solutions', value:   27.90, category: 'Serviços',    date: d(1)  },
 ];
 
 function loadDemo() {
-  state.transactions = DEMO_DATA.map(d => ({ ...d }));
-  if (!state.monthlyGoal) saveGoal(4000);
+  state.transactions = DEMO_DATA.map(t => ({ ...t }));
+  if (!state.monthlyGoal) saveGoal(5500);
   updateUI();
-  showToast('Dados de demonstração carregados!', 'success');
+  showToast('Cenário mensal completo carregado!', 'success');
 }
+
 
 dom.loadDemoBtn?.addEventListener('click', loadDemo);
 dom.heroDemoBtn?.addEventListener('click', loadDemo);
@@ -1011,6 +1062,7 @@ document.addEventListener('keydown', (e) => {
 
 // ─── 24. Init ────────────────────────────────────────────────
 (function init() {
+  initDarkMode();
   loadState();
   setDateInputDefault();
   navigateTo(state.currentView);
@@ -1023,5 +1075,5 @@ document.addEventListener('keydown', (e) => {
   });
 
   console.log('%c FinTrack AI ✨', 'font-size:20px;font-family:Newsreader,serif;font-style:italic;color:#2e6385;font-weight:bold');
-  console.log('%c Octoverse Hackathon 2024', 'font-size:11px;color:#727876;font-family:Space Grotesk');
+  console.log('%c Octoverse Hackathon 2024 · by Júnio (@Junio243)', 'font-size:11px;color:#727876;font-family:Space Grotesk');
 })();
