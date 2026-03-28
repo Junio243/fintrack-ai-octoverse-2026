@@ -4,7 +4,7 @@
 ### *Intelligent expense tracking — powered by behavioral AI*
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2e6385?style=for-the-badge&logo=github)](https://junio243.github.io/fintrack-ai-octoverse-2026/)
-[![Hackathon](https://img.shields.io/badge/Octoverse-Hackathon%202024-8ff6d0?style=for-the-badge&logo=github)](https://github.com/Junio243/fintrack-ai-octoverse-2026)
+[![Hackathon](https://img.shields.io/badge/Octoverse-Hackathon%202026-8ff6d0?style=for-the-badge&logo=github)](https://github.com/Junio243/fintrack-ai-octoverse-2026)
 [![Made by](https://img.shields.io/badge/Made%20by-J%C3%BAnio%20%40Junio243-cae7ff?style=for-the-badge)](https://github.com/Junio243)
 
 <br/>
