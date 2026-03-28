@@ -1,263 +1,704 @@
 <!DOCTYPE html>
-
-<html class="light" lang="pt-BR"><head>
+<html class="light" lang="pt-BR">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FinTrack AI — Gestão Financeira com Inteligência</title>
+<meta name="description" content="Controle suas finanças com IA. Dashboard elegante para rastrear despesas, visualizar insights e planejar seu futuro financeiro."/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;700&amp;family=Space_Grotesk:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "secondary-fixed": "#8ff6d0",
-              "on-tertiary-fixed": "#291800",
-              "inverse-surface": "#2e3132",
-              "on-surface": "#191c1d",
-              "on-primary-fixed-variant": "#0c4b6c",
-              "on-secondary-fixed": "#002117",
-              "surface-container-low": "#f3f4f5",
-              "on-tertiary": "#ffffff",
-              "primary-container": "#cae7ff",
-              "error": "#ba1a1a",
-              "on-secondary": "#ffffff",
-              "tertiary-fixed-dim": "#e6c092",
-              "inverse-on-surface": "#f0f1f2",
-              "surface-container": "#edeeef",
-              "inverse-primary": "#9accf3",
-              "error-container": "#ffdad6",
-              "surface-dim": "#d9dadb",
-              "secondary-container": "#8ff6d0",
-              "surface-bright": "#f8f9fa",
-              "outline": "#727876",
-              "primary-fixed": "#c9e6ff",
-              "on-tertiary-container": "#7d6039",
-              "on-error-container": "#93000a",
-              "surface": "#f8f9fa",
-              "tertiary": "#765933",
-              "surface-tint": "#2e6385",
-              "tertiary-container": "#ffdeb7",
-              "on-secondary-fixed-variant": "#00513d",
-              "outline-variant": "#c2c8c5",
-              "primary": "#2e6385",
-              "on-background": "#191c1d",
-              "surface-container-high": "#e7e8e9",
-              "on-error": "#ffffff",
-              "primary-fixed-dim": "#9accf3",
-              "secondary-fixed-dim": "#73d9b5",
-              "tertiary-fixed": "#ffddb4",
-              "on-secondary-container": "#007257",
-              "surface-container-highest": "#e1e3e4",
-              "on-tertiary-fixed-variant": "#5b421e",
-              "secondary": "#006c52",
-              "background": "#f8f9fa",
-              "on-primary": "#ffffff",
-              "surface-container-lowest": "#ffffff",
-              "on-surface-variant": "#424846",
-              "surface-variant": "#e1e3e4",
-              "on-primary-container": "#356a8c",
-              "on-primary-fixed": "#001e2f"
-            },
-            fontFamily: {
-              "headline": ["Newsreader"],
-              "body": ["Manrope"],
-              "label": ["Space Grotesk"]
-            },
-            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-          },
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "secondary-fixed": "#8ff6d0",
+          "on-tertiary-fixed": "#291800",
+          "inverse-surface": "#2e3132",
+          "on-surface": "#191c1d",
+          "on-primary-fixed-variant": "#0c4b6c",
+          "on-secondary-fixed": "#002117",
+          "surface-container-low": "#f3f4f5",
+          "on-tertiary": "#ffffff",
+          "primary-container": "#cae7ff",
+          "error": "#ba1a1a",
+          "on-secondary": "#ffffff",
+          "tertiary-fixed-dim": "#e6c092",
+          "inverse-on-surface": "#f0f1f2",
+          "surface-container": "#edeeef",
+          "inverse-primary": "#9accf3",
+          "error-container": "#ffdad6",
+          "surface-dim": "#d9dadb",
+          "secondary-container": "#8ff6d0",
+          "surface-bright": "#f8f9fa",
+          "outline": "#727876",
+          "primary-fixed": "#c9e6ff",
+          "on-tertiary-container": "#7d6039",
+          "on-error-container": "#93000a",
+          "surface": "#f8f9fa",
+          "tertiary": "#765933",
+          "surface-tint": "#2e6385",
+          "tertiary-container": "#ffdeb7",
+          "on-secondary-fixed-variant": "#00513d",
+          "outline-variant": "#c2c8c5",
+          "primary": "#2e6385",
+          "on-background": "#191c1d",
+          "surface-container-high": "#e7e8e9",
+          "on-error": "#ffffff",
+          "primary-fixed-dim": "#9accf3",
+          "secondary-fixed-dim": "#73d9b5",
+          "tertiary-fixed": "#ffddb4",
+          "on-secondary-container": "#007257",
+          "surface-container-highest": "#e1e3e4",
+          "on-tertiary-fixed-variant": "#5b421e",
+          "secondary": "#006c52",
+          "background": "#f8f9fa",
+          "on-primary": "#ffffff",
+          "surface-container-lowest": "#ffffff",
+          "on-surface-variant": "#424846",
+          "surface-variant": "#e1e3e4",
+          "on-primary-container": "#356a8c",
+          "on-primary-fixed": "#001e2f"
         },
-      }
-    </script>
+        fontFamily: {
+          "headline": ["Newsreader", "Georgia", "serif"],
+          "body": ["Manrope", "system-ui", "sans-serif"],
+          "label": ["Space Grotesk", "system-ui", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "4xl": "2rem", "full": "9999px"},
+        keyframes: {
+          "slide-in": { from: { opacity: "0", transform: "translateY(16px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+          "fade-in": { from: { opacity: "0" }, to: { opacity: "1" } },
+          "scale-in": { from: { opacity: "0", transform: "scale(0.95)" }, to: { opacity: "1", transform: "scale(1)" } },
+          "toast-in": { from: { opacity: "0", transform: "translateX(120%)" }, to: { opacity: "1", transform: "translateX(0)" } },
+          "pulse-glow": { "0%,100%": { boxShadow: "0 0 8px rgba(46,99,133,0.2)" }, "50%": { boxShadow: "0 0 24px rgba(46,99,133,0.5)" } }
+        },
+        animation: {
+          "slide-in": "slide-in 0.4s cubic-bezier(0.16,1,0.3,1) both",
+          "fade-in": "fade-in 0.3s ease both",
+          "scale-in": "scale-in 0.3s cubic-bezier(0.16,1,0.3,1) both",
+          "toast-in": "toast-in 0.4s cubic-bezier(0.16,1,0.3,1) both",
+          "pulse-glow": "pulse-glow 2.5s ease-in-out infinite"
+        }
+      },
+    },
+  }
+</script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px -10px rgba(25, 28, 29, 0.06);
-        }
-        .ethereal-glow {
-            text-shadow: 0 0 8px rgba(46, 99, 133, 0.15);
-        }
-        .hologram-shadow {
-            box-shadow: 0 0 20px rgba(46, 99, 133, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.5);
-        }
-    </style>
+  * { -webkit-font-smoothing: antialiased; }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-size: 20px;
+    line-height: 1;
+  }
+  .fill-icon { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 40px -10px rgba(25, 28, 29, 0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 24px 48px -12px rgba(25, 28, 29, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+    transform: translateY(-1px);
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .ethereal-glow { text-shadow: 0 0 8px rgba(46, 99, 133, 0.15); }
+  .hologram-shadow { box-shadow: 0 0 20px rgba(46, 99, 133, 0.1), inset 0 0 12px rgba(255, 255, 255, 0.5); }
+
+  /* Input etched lens style */
+  .etched-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(194, 200, 197, 0.4);
+    border-radius: 0;
+    padding: 8px 0;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    color: #191c1d;
+    font-family: 'Manrope', sans-serif;
+  }
+  .etched-input:focus {
+    border-bottom-color: #2e6385;
+    box-shadow: 0 4px 8px -4px rgba(46, 99, 133, 0.25);
+  }
+  .etched-input::placeholder { color: rgba(66, 72, 70, 0.4); }
+  select.etched-input { -webkit-appearance: none; appearance: none; cursor: pointer; }
+
+  /* Sidebar nav active state */
+  .nav-item { transition: all 0.2s ease; }
+  .nav-item.active { background: rgba(255,255,255,0.85); color: #2e6385; box-shadow: 0 4px 12px -4px rgba(25,28,29,0.08); }
+  .nav-item:not(.active):hover { background: rgba(255,255,255,0.4); color: #2e6385; transform: translateX(2px); }
+
+  /* View management */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* Toast */
+  #toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+  .toast {
+    padding: 14px 20px; border-radius: 16px; font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
+    backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 16px 32px -8px rgba(25,28,29,0.12);
+    animation: toast-in 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    display: flex; align-items: center; gap: 10px; max-width: 320px;
+  }
+  .toast.success { background: rgba(143, 246, 208, 0.85); color: #002117; }
+  .toast.error { background: rgba(255, 218, 214, 0.85); color: #93000a; }
+  .toast.info { background: rgba(202, 231, 255, 0.85); color: #001e2f; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(25,28,29,0.3); backdrop-filter: blur(8px);
+    z-index: 1000; display: flex; align-items: center; justify-content: center; opacity: 0;
+    pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal-box { transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+  .modal-overlay.open .modal-box { transform: scale(1); }
+
+  /* Progress bar glow */
+  .progress-bar-fill { 
+    background: linear-gradient(90deg, #2e6385, #9accf3);
+    box-shadow: 0 0 12px rgba(46,99,133,0.35);
+    transition: width 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .progress-bar-fill.warning { background: linear-gradient(90deg, #765933, #e6c092); box-shadow: 0 0 12px rgba(118,89,51,0.35); }
+  .progress-bar-fill.danger { background: linear-gradient(90deg, #ba1a1a, #ffdad6); box-shadow: 0 0 12px rgba(186,26,26,0.35); }
+
+  /* Table row delete button */
+  .delete-btn { opacity: 0; transition: opacity 0.2s; }
+  tr:hover .delete-btn { opacity: 1; }
+
+  /* Category badge */
+  .cat-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 100px;
+    font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(114,120,118,0.3); border-radius: 100px; }
+
+  /* AI insight typing animation */
+  @keyframes blink { 0%,100% { opacity:1 } 50% { opacity:0 } }
+  .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; margin-left: 2px; }
+
+  /* Chart canvas */
+  #spending-chart { max-height: 220px; }
+
+  /* Decorative orbs */
+  .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: -1; }
+
+  /* Holographic button primary */
+  .btn-primary {
+    background: linear-gradient(135deg, #2e6385, #9accf3 200%);
+    color: #ffffff; border-radius: 100px; font-family: 'Manrope', sans-serif; font-weight: 600;
+    box-shadow: 0 8px 24px -8px rgba(46,99,133,0.4);
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-primary:hover { box-shadow: 0 12px 32px -8px rgba(46,99,133,0.55); transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.97); }
+
+  .btn-glass {
+    background: rgba(255,255,255,0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 100px; font-family: 'Manrope', sans-serif; font-weight: 500; color: #2e6385;
+    box-shadow: 0 4px 16px -4px rgba(25,28,29,0.08);
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .btn-glass:hover { background: rgba(255,255,255,0.85); box-shadow: 0 8px 24px -8px rgba(25,28,29,0.12); transform: translateY(-1px); }
+  .btn-glass:active { transform: scale(0.97); }
+
+  /* AI insights panel */
+  #ai-insights-text { transition: opacity 0.4s ease; }
+  #ai-insights-text.updating { opacity: 0; }
+</style>
 </head>
-<body class="bg-surface font-body text-on-surface selection:bg-primary-container">
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container min-h-screen overflow-x-hidden">
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Modal de Configuração de Meta -->
+<div class="modal-overlay" id="goal-modal">
+  <div class="modal-box glass-card rounded-4xl p-8 w-full max-w-md mx-4">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="font-headline text-2xl italic">Definir Meta de Gastos</h2>
+      <button id="close-goal-modal" class="w-9 h-9 rounded-full hover:bg-surface-container flex items-center justify-center transition-colors">
+        <span class="material-symbols-outlined text-outline">close</span>
+      </button>
+    </div>
+    <div class="space-y-2 mb-6">
+      <label class="font-label text-xs uppercase tracking-widest text-outline block">Meta Mensal R$</label>
+      <input id="goal-input" type="number" min="0" step="100" placeholder="Ex: 3000.00" class="etched-input text-lg font-headline italic"/>
+    </div>
+    <button id="save-goal-btn" class="btn-primary w-full py-4 text-base">Salvar Meta</button>
+  </div>
+</div>
+
+<!-- Modal de Confirmação -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal-box glass-card rounded-4xl p-8 w-full max-w-sm mx-4 text-center">
+    <div class="w-14 h-14 rounded-full bg-error-container flex items-center justify-center mx-auto mb-5">
+      <span class="material-symbols-outlined text-error fill-icon">warning</span>
+    </div>
+    <h2 class="font-headline text-xl italic mb-2" id="confirm-title">Confirmar ação</h2>
+    <p class="text-sm text-on-surface-variant mb-8" id="confirm-message">Tem certeza?</p>
+    <div class="flex gap-3">
+      <button id="confirm-cancel" class="btn-glass flex-1 py-3">Cancelar</button>
+      <button id="confirm-ok" class="flex-1 py-3 bg-error text-on-error rounded-full font-medium transition-all hover:opacity-90 active:scale-97">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <!-- TopAppBar -->
-<nav class="fixed top-0 w-full z-50 bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl flex justify-between items-center px-8 h-20 max-w-full mx-auto shadow-[0_20px_40px_-10px_rgba(25,28,29,0.06)]">
-<div class="flex items-center gap-8">
-<span class="text-2xl font-serif text-sky-800 dark:text-sky-200 drop-shadow-[0_0_8px_rgba(46,99,133,0.15)] font-['Newsreader'] italic tracking-tight">FinTrack AI</span>
-<div class="hidden md:flex space-x-6">
-<a class="text-sky-800 dark:text-sky-200 border-b-2 border-sky-500 pb-1 font-['Newsreader'] italic tracking-tight" href="#">Dashboard</a>
-<a class="text-slate-500 dark:text-slate-400 hover:text-sky-600 transition-colors font-['Newsreader'] italic tracking-tight" href="#">Relatórios</a>
-<a class="text-slate-500 dark:text-slate-400 hover:text-sky-600 transition-colors font-['Newsreader'] italic tracking-tight" href="#">AI Insights</a>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<button class="px-5 py-2 text-primary font-medium hover:bg-white/20 hover:backdrop-blur-md transition-all duration-300 rounded-full">Demo</button>
-<button class="px-6 py-2.5 bg-primary text-on-primary rounded-full font-medium shadow-lg hover:shadow-xl active:scale-95 transition-all">Começar agora</button>
-</div>
+<nav class="fixed top-0 w-full z-50 bg-white/60 backdrop-blur-3xl flex justify-between items-center px-6 lg:px-8 h-[68px] shadow-[0_1px_0_rgba(25,28,29,0.06)]">
+  <div class="flex items-center gap-8">
+    <button id="mobile-menu-btn" class="lg:hidden w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant">menu</span>
+    </button>
+    <a href="#" class="text-2xl font-headline italic text-primary ethereal-glow tracking-tight select-none">FinTrack AI</a>
+    <div class="hidden md:flex space-x-6">
+      <a class="nav-link text-primary border-b-2 border-primary pb-1 font-headline italic tracking-tight text-sm" href="#" data-view="dashboard">Dashboard</a>
+      <a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-headline italic tracking-tight text-sm" href="#" data-view="reports">Relatórios</a>
+      <a class="nav-link text-on-surface-variant hover:text-primary transition-colors font-headline italic tracking-tight text-sm" href="#" data-view="insights">AI Insights</a>
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <button id="load-demo-btn" class="btn-glass px-5 py-2 text-sm">
+      <span class="flex items-center gap-1.5"><span class="material-symbols-outlined" style="font-size:16px">upload_file</span> Demo</span>
+    </button>
+    <button id="cta-btn" class="btn-primary px-5 py-2.5 text-sm hidden sm:block">Começar agora</button>
+  </div>
 </nav>
-<!-- SideNavBar (Hidden on smaller screens, contextually active) -->
-<aside class="h-screen w-64 fixed left-0 top-0 border-r border-white/10 bg-slate-50/40 dark:bg-slate-950/40 backdrop-blur-2xl hidden lg:flex flex-col p-6 space-y-8 z-40 pt-24">
-<div class="space-y-2">
-<div class="flex items-center gap-3 p-3 bg-white/80 dark:bg-sky-900/30 text-sky-800 dark:text-sky-100 rounded-xl shadow-sm cursor-pointer group transition-transform duration-200 hover:translate-x-1">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-['Manrope'] text-sm font-medium">Visão Geral</span>
-</div>
-<div class="flex items-center gap-3 p-3 text-slate-500 hover:text-sky-600 cursor-pointer group transition-transform duration-200 hover:translate-x-1">
-<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
-<span class="font-['Manrope'] text-sm font-medium">Transações</span>
-</div>
-<div class="flex items-center gap-3 p-3 text-slate-500 hover:text-sky-600 cursor-pointer group transition-transform duration-200 hover:translate-x-1">
-<span class="material-symbols-outlined" data-icon="category">category</span>
-<span class="font-['Manrope'] text-sm font-medium">Categorias</span>
-</div>
-<div class="flex items-center gap-3 p-3 text-slate-500 hover:text-sky-600 cursor-pointer group transition-transform duration-200 hover:translate-x-1">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-['Manrope'] text-sm font-medium">Configurações</span>
-</div>
-</div>
-<div class="mt-auto glass-card p-4 rounded-xl border border-primary/10">
-<p class="font-label text-[10px] uppercase tracking-widest text-primary mb-2">AI Insights</p>
-<p id="ai-insights-text" class="text-xs text-on-surface-variant leading-relaxed">Adicione algumas transações para que a IA possa analisar seu padrão de gastos.</p>
-</div>
+
+<!-- Mobile Sidebar Overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 lg:hidden hidden"></div>
+
+<!-- SideNavBar -->
+<aside id="sidebar" class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/80 backdrop-blur-2xl flex flex-col p-5 space-y-1.5 z-40 pt-[84px] transition-transform duration-300 -translate-x-full lg:translate-x-0">
+  <div class="space-y-1">
+    <button class="nav-item active w-full flex items-center gap-3 p-3 rounded-xl cursor-pointer text-left" data-view="dashboard">
+      <span class="material-symbols-outlined fill-icon text-primary">dashboard</span>
+      <span class="font-label text-sm font-500">Visão Geral</span>
+    </button>
+    <button class="nav-item w-full flex items-center gap-3 p-3 rounded-xl text-on-surface-variant cursor-pointer text-left" data-view="transactions">
+      <span class="material-symbols-outlined">receipt_long</span>
+      <span class="font-label text-sm">Transações</span>
+    </button>
+    <button class="nav-item w-full flex items-center gap-3 p-3 rounded-xl text-on-surface-variant cursor-pointer text-left" data-view="reports">
+      <span class="material-symbols-outlined">bar_chart</span>
+      <span class="font-label text-sm">Relatórios</span>
+    </button>
+    <button class="nav-item w-full flex items-center gap-3 p-3 rounded-xl text-on-surface-variant cursor-pointer text-left" data-view="insights">
+      <span class="material-symbols-outlined">auto_awesome</span>
+      <span class="font-label text-sm">AI Insights</span>
+    </button>
+    <button class="nav-item w-full flex items-center gap-3 p-3 rounded-xl text-on-surface-variant cursor-pointer text-left" data-view="settings">
+      <span class="material-symbols-outlined">settings</span>
+      <span class="font-label text-sm">Configurações</span>
+    </button>
+  </div>
+
+  <!-- AI Insight sidebar panel -->
+  <div class="mt-auto! pt-4">
+    <div class="glass-card p-4 rounded-2xl border border-primary/10 animate-pulse-glow">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="material-symbols-outlined fill-icon text-primary" style="font-size:14px">auto_awesome</span>
+        <p class="font-label text-[10px] uppercase tracking-widest text-primary">AI Insights</p>
+      </div>
+      <p id="ai-insights-text" class="text-xs text-on-surface-variant leading-relaxed">Adicione algumas transações para que a IA possa analisar seu padrão de gastos.</p>
+    </div>
+  </div>
 </aside>
-<main class="lg:ml-64 pt-32 px-8 pb-20 max-w-7xl mx-auto">
-<!-- Hero Section -->
-<header class="mb-16 relative">
-<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -z-10"></div>
-<h1 class="font-headline text-5xl lg:text-7xl italic text-on-surface mb-6 ethereal-glow leading-tight">
-                Seu dinheiro sob controle,<br/>guiado por inteligência.
-            </h1>
-<p class="text-lg text-on-surface-variant max-w-2xl mb-10 font-body">
-                Experimente a nova era da gestão financeira. Uma interface holográfica que entende seus hábitos e projeta seu futuro de riqueza.
-            </p>
-<div class="flex gap-4">
-<button class="px-8 py-4 bg-primary text-on-primary rounded-full font-medium shadow-2xl hover:scale-105 active:scale-95 transition-all">Começar agora</button>
-<button id="load-demo-btn" class="px-8 py-4 glass-card rounded-full font-medium text-primary hover:bg-white/40 transition-all flex items-center gap-2">
-<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
-                    Carregar dados
-                </button>
-</div>
-</header>
-<!-- Bento Grid Layout -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-<!-- Form Card: Adicionar Gasto -->
-<section class="md:col-span-5 glass-card p-8 rounded-[2rem] relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10">
-<span class="material-symbols-outlined text-6xl" data-icon="payments">payments</span>
-</div>
-<h3 class="font-headline text-2xl italic mb-8">Adicionar gasto</h3>
-<form id="transaction-form" class="space-y-6">
-<div class="relative">
-<label class="font-label text-xs uppercase tracking-widest text-outline mb-2 block">Descrição</label>
-<input id="desc-input" class="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary px-0 py-2 transition-all placeholder:text-outline-variant/60" placeholder="Ex: Café na padaria" type="text" required/>
-</div>
-<div class="grid grid-cols-2 gap-6">
-<div class="relative">
-<label class="font-label text-xs uppercase tracking-widest text-outline mb-2 block">Valor R$</label>
-<input id="val-input" class="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary px-0 py-2 transition-all" placeholder="0.00" type="number" step="0.01" min="0" required/>
-</div>
-<div class="relative">
-<label class="font-label text-xs uppercase tracking-widest text-outline mb-2 block">Categoria</label>
-<select id="cat-input" class="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:ring-0 focus:border-primary px-0 py-2 transition-all appearance-none cursor-pointer">
-<option value="Alimentação">Alimentação</option>
-<option value="Transporte">Transporte</option>
-<option value="Lazer">Lazer</option>
-<option value="Saúde">Saúde</option>
-<option value="Serviços">Serviços</option>
-<option value="Moradia">Moradia</option>
-<option value="Outros">Outros</option>
-</select>
-</div>
-</div>
-<button class="w-full py-4 bg-primary text-on-primary rounded-full font-medium mt-4 shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.98]" type="submit">
-                        Salvar Transação
-                    </button>
-</form>
-</section>
-<!-- Summary Card: Resumo -->
-<section class="md:col-span-7 glass-card p-8 rounded-[2rem] flex flex-col justify-between">
-<div class="flex justify-between items-start mb-8">
-<div>
-<h3 class="font-headline text-2xl italic">Resumo Mensal</h3>
-<p class="font-label text-[10px] uppercase tracking-widest text-outline">Período: Junho 2024</p>
-</div>
-<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-sm">
-<span class="material-symbols-outlined" data-icon="trending_up" data-weight="fill">trending_up</span>
-</div>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-<div class="space-y-1">
-<p class="font-label text-[10px] uppercase tracking-widest text-outline">Total Gasto</p>
-<p id="summary-total" class="text-2xl font-headline italic text-primary">R$ 0,00</p>
-</div>
-<div class="space-y-1">
-<p class="font-label text-[10px] uppercase tracking-widest text-outline">Categoria Líder</p>
-<p id="summary-lider" class="text-xl font-body font-medium text-on-surface">-</p>
-</div>
-<div class="space-y-1">
-<p class="font-label text-[10px] uppercase tracking-widest text-outline">Lançamentos</p>
-<p id="summary-count" class="text-2xl font-headline italic text-on-surface">0</p>
-</div>
-<div class="space-y-1">
-<p class="font-label text-[10px] uppercase tracking-widest text-outline">Ticket Médio</p>
-<p id="summary-ticket" class="text-2xl font-headline italic text-on-surface">R$ 0,00</p>
-</div>
-</div>
-<div class="mt-8 pt-8 border-t border-outline-variant/10">
-<div class="flex items-center justify-between mb-4">
-<span class="text-sm font-medium text-on-surface-variant">Meta de Gastos</span>
-<span class="text-sm font-label text-primary">75%</span>
-</div>
-<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
-<div class="h-full bg-primary rounded-full w-3/4 shadow-[0_0_8px_rgba(46,99,133,0.3)]"></div>
-</div>
-</div>
-</section>
-<!-- List Card: Últimos Lançamentos -->
-<section class="md:col-span-12 glass-card rounded-[2rem] overflow-hidden">
-<div class="p-8 border-b border-outline-variant/10 flex justify-between items-center bg-white/40">
-<h3 class="font-headline text-2xl italic">Últimos lançamentos</h3>
-<button id="clear-all-btn" class="text-error font-label text-xs uppercase tracking-widest hover:underline decoration-2 underline-offset-4 transition-all">Limpar Tudo</button>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left">
-<thead>
-<tr class="font-label text-[10px] uppercase tracking-widest text-outline">
-<th class="px-8 py-4 font-normal">Data</th>
-<th class="px-8 py-4 font-normal">Descrição</th>
-<th class="px-8 py-4 font-normal">Categoria</th>
-<th class="px-8 py-4 font-normal text-right">Valor</th>
-</tr>
-</thead>
-<tbody id="transaction-list" class="divide-y divide-outline-variant/5">
-<!-- Transactions will be rendered here by app.js -->
-</tbody>
-</table>
-</div>
-</section>
-</div>
+
+<!-- ====== MAIN CONTENT ====== -->
+<main class="lg:ml-64 pt-[68px] min-h-screen">
+
+  <!-- ===== VIEW: DASHBOARD ===== -->
+  <div id="view-dashboard" class="view active px-5 lg:px-8 pb-20 max-w-7xl mx-auto py-10">
+
+    <!-- Hero Section -->
+    <header class="mb-12 relative animate-slide-in">
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+      <h1 class="font-headline text-4xl lg:text-6xl italic text-on-surface mb-4 ethereal-glow leading-tight">
+        Seu dinheiro sob controle,<br/>guiado por inteligência.
+      </h1>
+      <p class="text-base text-on-surface-variant max-w-xl mb-8 font-body leading-relaxed">
+        A nova era da gestão financeira. Uma interface holográfica que entende seus hábitos e projeta seu futuro de riqueza.
+      </p>
+      <div class="flex gap-3 flex-wrap">
+        <button id="hero-start-btn" class="btn-primary px-8 py-3.5 text-base flex items-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:18px">rocket_launch</span>
+          Começar agora
+        </button>
+        <button id="hero-demo-btn" class="btn-glass px-8 py-3.5 text-base flex items-center gap-2">
+          <span class="material-symbols-outlined" style="font-size:18px">upload_file</span>
+          Carregar dados de exemplo
+        </button>
+      </div>
+    </header>
+
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
+
+      <!-- Form Card: Adicionar Gasto (col 5) -->
+      <section class="md:col-span-5 glass-card p-7 rounded-4xl relative overflow-hidden animate-slide-in" style="animation-delay:0.05s">
+        <div class="absolute top-5 right-5 opacity-[0.07]">
+          <span class="material-symbols-outlined fill-icon" style="font-size:72px">payments</span>
+        </div>
+        <h2 class="font-headline text-xl italic mb-6">Adicionar gasto</h2>
+        <form id="transaction-form" class="space-y-5" novalidate>
+          <div>
+            <label class="font-label text-[10px] uppercase tracking-widest text-outline mb-1.5 block" for="desc-input">Descrição</label>
+            <input id="desc-input" class="etched-input" placeholder="Ex: Café na padaria" type="text" autocomplete="off"/>
+            <p class="text-error text-xs mt-1 hidden" id="desc-error">Campo obrigatório.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-5">
+            <div>
+              <label class="font-label text-[10px] uppercase tracking-widest text-outline mb-1.5 block" for="val-input">Valor R$</label>
+              <input id="val-input" class="etched-input" placeholder="0,00" type="number" step="0.01" min="0.01" inputmode="decimal"/>
+              <p class="text-error text-xs mt-1 hidden" id="val-error">Valor inválido.</p>
+            </div>
+            <div class="relative">
+              <label class="font-label text-[10px] uppercase tracking-widest text-outline mb-1.5 block" for="cat-input">Categoria</label>
+              <select id="cat-input" class="etched-input pr-6">
+                <option value="Alimentação">🍽 Alimentação</option>
+                <option value="Transporte">🚗 Transporte</option>
+                <option value="Lazer">🎮 Lazer</option>
+                <option value="Saúde">❤️ Saúde</option>
+                <option value="Serviços">⚡ Serviços</option>
+                <option value="Moradia">🏠 Moradia</option>
+                <option value="Outros">📦 Outros</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-0 bottom-2 text-outline pointer-events-none" style="font-size:16px">expand_more</span>
+            </div>
+          </div>
+          <div>
+            <label class="font-label text-[10px] uppercase tracking-widest text-outline mb-1.5 block" for="date-input">Data</label>
+            <input id="date-input" class="etched-input" type="date"/>
+          </div>
+          <button class="btn-primary w-full py-3.5 text-sm mt-2 flex items-center justify-center gap-2" type="submit" id="submit-btn">
+            <span class="material-symbols-outlined" style="font-size:18px">add_circle</span>
+            Salvar Transação
+          </button>
+        </form>
+      </section>
+
+      <!-- Summary + Chart Card (col 7) -->
+      <section class="md:col-span-7 flex flex-col gap-6">
+
+        <!-- Summary metrics -->
+        <div class="glass-card p-7 rounded-4xl animate-slide-in" style="animation-delay:0.1s">
+          <div class="flex justify-between items-start mb-6">
+            <div>
+              <h2 class="font-headline text-xl italic">Resumo Mensal</h2>
+              <p class="font-label text-[10px] uppercase tracking-widest text-outline mt-0.5" id="period-label">Carregando...</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="set-goal-btn" title="Definir Meta" class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center transition-colors text-on-surface-variant hover:text-primary">
+                <span class="material-symbols-outlined" style="font-size:20px">flag</span>
+              </button>
+              <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shadow-sm">
+                <span class="material-symbols-outlined fill-icon" style="font-size:20px">trending_up</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-5">
+            <div class="space-y-1 p-3 rounded-2xl bg-surface-container-low/80">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline">Total Gasto</p>
+              <p id="summary-total" class="text-xl font-headline italic text-primary ethereal-glow">R$ 0,00</p>
+            </div>
+            <div class="space-y-1 p-3 rounded-2xl bg-surface-container-low/80">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline">Categoria Líder</p>
+              <p id="summary-lider" class="text-base font-body font-600 text-on-surface">—</p>
+            </div>
+            <div class="space-y-1 p-3 rounded-2xl bg-surface-container-low/80">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline">Lançamentos</p>
+              <p id="summary-count" class="text-xl font-headline italic text-on-surface">0</p>
+            </div>
+            <div class="space-y-1 p-3 rounded-2xl bg-surface-container-low/80">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline">Ticket Médio</p>
+              <p id="summary-ticket" class="text-xl font-headline italic text-on-surface">R$ 0,00</p>
+            </div>
+          </div>
+
+          <!-- Goal Progress Bar -->
+          <div class="mt-6" id="goal-progress-area">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-label text-on-surface-variant">Meta de Gastos Mensal</span>
+              <span class="text-xs font-label text-primary font-500" id="goal-percent-label">—</span>
+            </div>
+            <div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+              <div class="h-full progress-bar-fill rounded-full" id="goal-progress-bar" style="width: 0%"></div>
+            </div>
+            <p class="text-[10px] font-label text-outline mt-1" id="goal-sub-label">Defina uma meta para acompanhar seu progresso</p>
+          </div>
+        </div>
+
+        <!-- Donut Chart Card -->
+        <div class="glass-card p-7 rounded-4xl animate-slide-in flex-1" style="animation-delay:0.15s">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="font-headline text-xl italic">Por Categoria</h2>
+            <span class="font-label text-[10px] uppercase tracking-widest text-outline">Este mês</span>
+          </div>
+          <div id="chart-empty-state" class="flex flex-col items-center justify-center py-8 text-center">
+            <span class="material-symbols-outlined text-surface-container-highest mb-3" style="font-size:48px">donut_large</span>
+            <p class="text-xs text-outline font-label">Nenhum dado para exibir ainda.</p>
+          </div>
+          <div id="chart-container" class="hidden relative">
+            <canvas id="spending-chart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Transactions Card (col 12) -->
+      <section class="md:col-span-12 glass-card rounded-4xl overflow-hidden animate-slide-in" style="animation-delay:0.2s">
+        <div class="p-7 flex justify-between items-center bg-white/30">
+          <div class="flex items-center gap-3">
+            <h2 class="font-headline text-xl italic">Últimos lançamentos</h2>
+            <span id="tx-count-badge" class="px-2.5 py-0.5 bg-primary-container text-on-primary-container cat-badge hidden">0</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="relative hidden sm:block">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" style="font-size:16px">search</span>
+              <input id="search-input" type="search" placeholder="Buscar transação..." class="pl-9 pr-4 py-2 bg-surface-container/60 rounded-full text-sm font-label border-0 outline-none focus:bg-white/70 transition-all w-48 focus:w-64 placeholder:text-outline"/>
+            </div>
+            <button id="clear-all-btn" class="font-label text-[10px] uppercase tracking-widest text-error hover:text-error/70 transition-colors flex items-center gap-1">
+              <span class="material-symbols-outlined" style="font-size:14px">delete_sweep</span>
+              Limpar Tudo
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="font-label text-[10px] uppercase tracking-widest text-outline bg-surface-container-low/40">
+                <th class="px-7 py-3.5 font-500">Data</th>
+                <th class="px-7 py-3.5 font-500">Descrição</th>
+                <th class="px-7 py-3.5 font-500">Categoria</th>
+                <th class="px-7 py-3.5 font-500 text-right">Valor</th>
+                <th class="px-4 py-3.5 font-500 w-10"></th>
+              </tr>
+            </thead>
+            <tbody id="transaction-list" class="divide-y divide-outline-variant/5">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+          <div id="empty-state" class="flex flex-col items-center justify-center py-16 text-center hidden">
+            <span class="material-symbols-outlined text-surface-container-highest mb-4" style="font-size:56px">receipt_long</span>
+            <p class="font-headline text-lg italic text-on-surface-variant mb-1">Nenhum lançamento ainda</p>
+            <p class="text-xs text-outline font-label">Adicione sua primeira transação usando o formulário acima.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: TRANSAÇÕES ===== -->
+  <div id="view-transactions" class="view px-5 lg:px-8 pb-20 max-w-7xl mx-auto py-10">
+    <div class="animate-slide-in">
+      <h1 class="font-headline text-4xl italic mb-2 ethereal-glow">Transações</h1>
+      <p class="text-on-surface-variant text-sm mb-8">Histórico completo de todos os seus lançamentos.</p>
+
+      <!-- Filter bar -->
+      <div class="glass-card p-4 rounded-3xl mb-6 flex flex-wrap gap-4 items-center">
+        <div class="relative flex-1 min-w-48">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" style="font-size:16px">search</span>
+          <input id="tx-search-input" type="search" placeholder="Buscar..." class="pl-9 pr-4 py-2 bg-surface-container/60 rounded-full text-sm font-label border-0 outline-none focus:bg-white/70 transition-all w-full placeholder:text-outline"/>
+        </div>
+        <div class="relative">
+          <select id="tx-cat-filter" class="pl-3 pr-8 py-2 bg-surface-container/60 rounded-full text-sm font-label border-0 outline-none cursor-pointer appearance-none focus:bg-white/70 transition-all">
+            <option value="">Todas categorias</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Saúde">Saúde</option>
+            <option value="Serviços">Serviços</option>
+            <option value="Moradia">Moradia</option>
+            <option value="Outros">Outros</option>
+          </select>
+          <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-size:14px">expand_more</span>
+        </div>
+        <select id="tx-sort" class="pl-3 pr-8 py-2 bg-surface-container/60 rounded-full text-sm font-label border-0 outline-none cursor-pointer appearance-none focus:bg-white/70 transition-all relative">
+          <option value="date-desc">Mais recentes</option>
+          <option value="date-asc">Mais antigas</option>
+          <option value="val-desc">Maior valor</option>
+          <option value="val-asc">Menor valor</option>
+        </select>
+        <span class="font-label text-xs text-outline ml-auto" id="tx-result-count">0 itens</span>
+      </div>
+
+      <div class="glass-card rounded-4xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="font-label text-[10px] uppercase tracking-widest text-outline bg-white/30">
+                <th class="px-7 py-4 font-500">Data</th>
+                <th class="px-7 py-4 font-500">Descrição</th>
+                <th class="px-7 py-4 font-500">Categoria</th>
+                <th class="px-7 py-4 font-500 text-right">Valor</th>
+                <th class="px-4 py-4 w-12"></th>
+              </tr>
+            </thead>
+            <tbody id="tx-full-list" class="divide-y divide-outline-variant/5"></tbody>
+          </table>
+          <div id="tx-empty-state" class="flex flex-col items-center py-16 text-center hidden">
+            <span class="material-symbols-outlined text-surface-container-highest mb-3" style="font-size:48px">search_off</span>
+            <p class="text-sm text-on-surface-variant font-label">Nenhuma transação encontrada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: RELATÓRIOS ===== -->
+  <div id="view-reports" class="view px-5 lg:px-8 pb-20 max-w-7xl mx-auto py-10">
+    <div class="animate-slide-in">
+      <h1 class="font-headline text-4xl italic mb-2 ethereal-glow">Relatórios</h1>
+      <p class="text-on-surface-variant text-sm mb-8">Análise visual e estatística das suas finanças.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Donut -->
+        <div class="glass-card p-7 rounded-4xl">
+          <h2 class="font-headline text-xl italic mb-5">Distribuição por Categoria</h2>
+          <div id="report-chart-empty" class="flex flex-col items-center py-10 text-center">
+            <span class="material-symbols-outlined text-surface-container-highest mb-3" style="font-size:48px">pie_chart</span>
+            <p class="text-xs text-outline font-label">Sem dados suficientes.</p>
+          </div>
+          <div id="report-chart-container" class="hidden">
+            <canvas id="report-donut-chart" style="max-height:260px"></canvas>
+          </div>
+        </div>
+
+        <!-- Bar chart (top categories) -->
+        <div class="glass-card p-7 rounded-4xl">
+          <h2 class="font-headline text-xl italic mb-5">Top Categorias</h2>
+          <div id="bar-chart-empty" class="flex flex-col items-center py-10 text-center">
+            <span class="material-symbols-outlined text-surface-container-highest mb-3" style="font-size:48px">bar_chart</span>
+            <p class="text-xs text-outline font-label">Sem dados suficientes.</p>
+          </div>
+          <div id="bar-chart-container" class="hidden">
+            <canvas id="bar-chart" style="max-height:260px"></canvas>
+          </div>
+        </div>
+
+        <!-- Stats cards -->
+        <div class="glass-card p-7 rounded-4xl lg:col-span-2">
+          <h2 class="font-headline text-xl italic mb-5">Estatísticas Detalhadas</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="detailed-stats">
+            <div class="p-4 rounded-3xl bg-surface-container-low/80 text-center">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline mb-1">Maior Gasto</p>
+              <p id="stat-max" class="font-headline italic text-lg text-primary">—</p>
+            </div>
+            <div class="p-4 rounded-3xl bg-surface-container-low/80 text-center">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline mb-1">Menor Gasto</p>
+              <p id="stat-min" class="font-headline italic text-lg text-secondary">—</p>
+            </div>
+            <div class="p-4 rounded-3xl bg-surface-container-low/80 text-center">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline mb-1">Média Diária</p>
+              <p id="stat-daily" class="font-headline italic text-lg text-on-surface">—</p>
+            </div>
+            <div class="p-4 rounded-3xl bg-surface-container-low/80 text-center">
+              <p class="font-label text-[9px] uppercase tracking-widest text-outline mb-1">Categorias Ativas</p>
+              <p id="stat-cats" class="font-headline italic text-lg text-tertiary">—</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: AI INSIGHTS ===== -->
+  <div id="view-insights" class="view px-5 lg:px-8 pb-20 max-w-4xl mx-auto py-10">
+    <div class="animate-slide-in">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="material-symbols-outlined fill-icon text-primary" style="font-size:32px">auto_awesome</span>
+        <h1 class="font-headline text-4xl italic ethereal-glow">AI Insights</h1>
+      </div>
+      <p class="text-on-surface-variant text-sm mb-10">Análise inteligente dos seus padrões de consumo.</p>
+
+      <div class="space-y-5" id="insights-container">
+        <!-- Rendered by JS -->
+        <div class="glass-card p-8 rounded-4xl text-center py-16" id="insights-empty">
+          <span class="material-symbols-outlined text-surface-container-highest mb-4 block" style="font-size:56px">psychology</span>
+          <p class="font-headline text-xl italic text-on-surface-variant mb-2">A IA está aguardando dados</p>
+          <p class="text-xs text-outline font-label">Adicione pelo menos 2 transações para receber insights personalizados.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIEW: CONFIGURAÇÕES ===== -->
+  <div id="view-settings" class="view px-5 lg:px-8 pb-20 max-w-2xl mx-auto py-10">
+    <div class="animate-slide-in">
+      <h1 class="font-headline text-4xl italic mb-2 ethereal-glow">Configurações</h1>
+      <p class="text-on-surface-variant text-sm mb-8">Personalize sua experiência FinTrack AI.</p>
+
+      <div class="space-y-4">
+        <div class="glass-card p-7 rounded-4xl">
+          <h2 class="font-headline text-lg italic mb-5">Meta Financeira</h2>
+          <div class="flex items-end gap-4">
+            <div class="flex-1">
+              <label class="font-label text-[10px] uppercase tracking-widest text-outline mb-1.5 block">Meta Mensal R$</label>
+              <input id="settings-goal-input" type="number" min="0" step="100" placeholder="Ex: 3000.00" class="etched-input text-xl font-headline italic"/>
+            </div>
+            <button id="settings-save-goal" class="btn-primary px-6 py-3 text-sm mb-0.5">Salvar</button>
+          </div>
+          <p class="text-xs text-outline font-label mt-3" id="settings-goal-status">Meta atual: não definida</p>
+        </div>
+
+        <div class="glass-card p-7 rounded-4xl">
+          <h2 class="font-headline text-lg italic mb-5">Dados</h2>
+          <div class="space-y-3">
+            <button id="export-btn" class="btn-glass w-full py-3 text-sm flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined" style="font-size:18px">download</span>
+              Exportar transações (JSON)
+            </button>
+            <button id="settings-clear-btn" class="w-full py-3 text-sm flex items-center justify-center gap-2 rounded-full border border-error/30 text-error font-label hover:bg-error-container/30 transition-colors">
+              <span class="material-symbols-outlined" style="font-size:18px">delete_forever</span>
+              Apagar todos os dados
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card p-7 rounded-4xl">
+          <h2 class="font-headline text-lg italic mb-3">Sobre</h2>
+          <p class="text-sm text-on-surface-variant leading-relaxed">
+            <strong class="font-headline italic text-primary">FinTrack AI</strong> — Desenvolvido para o Octoverse Hackathon.<br/>
+            Stack: HTML + CSS (TailwindCSS) + JavaScript puro + Chart.js<br/>
+            Dados armazenados localmente via <code class="font-label text-xs bg-surface-container px-1.5 py-0.5 rounded">localStorage</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
+
 <!-- Footer -->
-<footer class="w-full py-12 mt-auto flex flex-col items-center justify-center space-y-6">
-<div class="flex space-x-8">
-<a class="text-slate-400 font-label text-[10px] uppercase tracking-widest hover:text-sky-400 underline-offset-4 underline transition-all" href="#">Privacidade</a>
-<a class="text-slate-400 font-label text-[10px] uppercase tracking-widest hover:text-sky-400 underline-offset-4 underline transition-all" href="#">Termos</a>
-<a class="text-slate-400 font-label text-[10px] uppercase tracking-widest hover:text-sky-400 underline-offset-4 underline transition-all" href="#">Suporte</a>
-</div>
-<p class="text-slate-400 font-label text-[10px] uppercase tracking-widest opacity-80">© 2024 FinTrack AI. Crafted for the Digital Alchemist.</p>
+<footer class="lg:ml-64 py-10 flex flex-col items-center justify-center space-y-4">
+  <div class="flex space-x-6">
+    <a class="text-outline font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors" href="#">Privacidade</a>
+    <a class="text-outline font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors" href="#">Termos</a>
+    <a class="text-outline font-label text-[10px] uppercase tracking-widest hover:text-primary transition-colors" href="#">Suporte</a>
+  </div>
+  <p class="text-outline font-label text-[10px] uppercase tracking-widest opacity-60">© 2024 FinTrack AI · Crafted for the Digital Alchemist</p>
 </footer>
-<!-- Decorative background elements for "3D revolutionary layout" -->
-<div class="fixed top-1/4 -right-20 w-80 h-80 bg-secondary/10 rounded-full blur-[120px] -z-20"></div>
-<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full h-[512px] bg-gradient-to-t from-primary/5 to-transparent -z-20 pointer-events-none"></div>
+
+<!-- Decorative orbs -->
+<div class="orb w-80 h-80 bg-secondary/8 blur-[120px] top-1/4 -right-20"></div>
+<div class="orb w-[512px] h-64 bg-primary/5 blur-[100px] bottom-0 left-1/2 -translate-x-1/2"></div>
+
 <script src="app.js"></script>
-</body></html>
+</body>
+</html>
